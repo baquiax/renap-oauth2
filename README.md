@@ -1,2 +1,2 @@
 # renap-oauth2
-node-oauth2-server implementation.
+OAuth2 Authorization Code server.
