@@ -32,8 +32,7 @@ class Server implements ControllerProviderInterface {
         
         $server = new OAuth2Server($storage, array(
             'enforce_state' => true,
-            'allow_implicit' => true,
-            'use_openid_connect' => true,
+            'allow_implicit' => true,            
             'issuer' => $_SERVER['HTTP_HOST'],
         ), $grantTypes);        
         
