@@ -2,34 +2,33 @@
 
 {% block content %}
     <h3>
-        Welcome to the OAuth2.0 Server!
+	Acceso a RENAP Guate
     </h3>
     <p>
-        You have been sent here by <strong>{{client_id}}</strong>.  {{client_id}} would like to access the following data:
+        Ha sido enviado acá por: <strong>{{client_id}}</strong>.  {{client_id}} necesita los siguientes permisos:
     </p>
     <ul>
-        <li>friends</li>
-        <li>memories</li>
-        <li>hopes, dreams, passions, etc.</li>
-        <li>sock drawer</li>
+        <li>crear personas</li>
+        <li>ver informacion de personas</li>
+        <li>modificar informacion de personas</li>
     </ul>
-    <p>It will use this data to:</p>
+    <p>Las cuales se usarán para:</p>
     <ul>
-        <li>integrate with friends</li>
-        <li>make your life better</li>
-        <li>miscellaneous nefarious purposes</li>
+        <li>Inscribir personas</li>
+        <li>Modificar información de las personas</li>
+        <li>Verificar existencia de personas</li>
     </ul>
-    <p>Click the button below to complete the authorize request and grant an <code>{{ response_type == 'code' ? 'Authorization Code' : 'Access Token' }}</code> to {{client_id}}.
+    <p>Haga click en el botón para completar la solicitud de permisos y permitir un <code>{{ response_type == 'code' ? 'Authorization Code' : 'Access Token' }}</code> a {{client_id}}.
     <ul class="authorize_options">
         <li>
             <form action="{{ path('authorize_post') ~ '?' ~ app.request.queryString }}" method="post">
-                <input type="submit" class="button authorize" value="Yes, I Authorize This Request" />
+                <input type="submit" class="button authorize" value="Sí, autorizo el acceso!" />
                 <input type="hidden" name="authorize" value="1" />
             </form>
         </li>
         <li class="cancel">
             <form id="cancel" action="{{ path('authorize_post') ~ '?' ~ app.request.queryString }}" method="post">
-                <a href="#" onclick="document.getElementById('cancel').submit()">cancel</a>
+                <a href="#" onclick="document.getElementById('cancel').submit()">No, no quiero acceder.</a>
                 <input type="hidden" name="authorize" value="0" />
             </form>
         </li>

@@ -1,0 +1,23 @@
+.golden-color {
+  color, background-color: #D9BC70;
+}
+
+.white-color {
+  color, background-color: #F2F2F2;
+}
+
+.red-color {
+  color, background-color: #EE5B49;
+}
+
+.navbar {
+  min-height: 85px !important;
+}
+
+.navbar .navbar-btn {
+  margin-top: 25px !important;
+  margin-bottom: 25px !important;  
+}
+a {
+  color: #00B7FF;
+}
