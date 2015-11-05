@@ -1,3 +1,0 @@
-[submodule "oauth2-server-php"]
-	path = oauth2-server-php
-	url = https://github.com/bshaffer/oauth2-server-php.git
