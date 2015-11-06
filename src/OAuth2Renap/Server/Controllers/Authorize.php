@@ -16,11 +16,11 @@ class Authorize {
         if (!$server->validateAuthorizeRequest($app['request'], $response)) {
             return $server->getResponse();
         }
-        
-        return $app['twig']->render('server/authorize.twig', array(
-            'client_id' => $app['request']->query->get('client_id'),
-            'response_type' => $app['request']->query->get('response_type')
-        ));
+        $twig =  (!empty( $app['session']->get('username'))) ? 'server/authorize.twig' : 'server/login.twig';
+        return $app['twig']->render($twig, array(
+                'client_id' => $app['request']->query->get('client_id'),
+                'response_type' => $app['request']->query->get('response_type')
+            ));
     }
     
     public function authorizeFormSubmit(Application $app) {        
@@ -28,6 +28,7 @@ class Authorize {
         $response = $app['oauth_response'];
         
         $authorized = (bool) $app['request']->request->get('authorize');
-        return $server->handleAuthorizeRequest($app['request'], $response, $authorized);
+        $user_id = $app['session']->get('username');
+        return $server->handleAuthorizeRequest($app['request'], $response, $authorized, $user_id);
     }
 }

@@ -14,9 +14,9 @@ use OAuth2\GrantType\RefreshToken;
 class Server implements ControllerProviderInterface {
     
     public function setup(Application $app) {
-        //$dsn = "mysql:dbname=renap_users;unix_socket=/tmp/mysqld.sock;host:localhost;";
-        $dsn = "mysql:dbname=renap_users;host:localhost;";
-	$username = "baquiax";
+        $dsn = "mysql:dbname=renap_users;unix_socket=/tmp/mysqld.sock;host:localhost;";
+        //$dsn = "mysql:dbname=renap_users;host:localhost;";
+        $username = "baquiax";
         $password = "admin";
         $storage = new Pdo(array(
             "dsn" =>  $dsn,

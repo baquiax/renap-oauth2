@@ -1,36 +1,43 @@
 {% extends "server/base.twig" %}
 
 {% block content %}
-    <h3>
-	Acceso a RENAP Guate
-    </h3>
-    <p>
-        Ha sido enviado acá por: <strong>{{client_id}}</strong>.  {{client_id}} necesita los siguientes permisos:
-    </p>
-    <ul>
-        <li>crear personas</li>
-        <li>ver informacion de personas</li>
-        <li>modificar informacion de personas</li>
-    </ul>
-    <p>Las cuales se usarán para:</p>
-    <ul>
-        <li>Inscribir personas</li>
-        <li>Modificar información de las personas</li>
-        <li>Verificar existencia de personas</li>
-    </ul>
-    <p>Haga click en el botón para completar la solicitud de permisos y permitir un <code>{{ response_type == 'code' ? 'Authorization Code' : 'Access Token' }}</code> a {{client_id}}.
-    <ul class="authorize_options">
-        <li>
-            <form action="{{ path('authorize_post') ~ '?' ~ app.request.queryString }}" method="post">
-                <input type="submit" class="button authorize" value="Sí, autorizo el acceso!" />
-                <input type="hidden" name="authorize" value="1" />
-            </form>
-        </li>
-        <li class="cancel">
-            <form id="cancel" action="{{ path('authorize_post') ~ '?' ~ app.request.queryString }}" method="post">
-                <a href="#" onclick="document.getElementById('cancel').submit()">No, no quiero acceder.</a>
-                <input type="hidden" name="authorize" value="0" />
-            </form>
-        </li>
-    </ul>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+    <div class="well well-lg">
+        <h3>
+           Acceso a RENAP Guate
+        </h3>
+        <p>
+            Ha sido enviado acá por: <strong>{{client_id}}</strong>.  {{client_id}} necesita los siguientes permisos:
+        </p>
+        <ul>
+            <li>crear personas</li>
+            <li>ver informacion de personas</li>
+            <li>modificar informacion de personas</li>
+        </ul>
+        <p>Las cuales se usarán para:</p>
+        <ul>
+            <li>Inscribir personas</li>
+            <li>Modificar información de las personas</li>
+            <li>Verificar existencia de personas</li>
+        </ul>
+        <p>Haga click en el botón para completar la solicitud de permisos y permitir un <code>{{ response_type == 'code' ? 'Authorization Code' : 'Access Token' }}</code> a {{client_id}}.
+        <ul class="authorize_options">
+            <li>
+                <form action="{{ path('authorize_post') ~ '?' ~ app.request.queryString }}" method="post">
+                    <input type="submit" class="button authorize" value="Sí, autorizo el acceso!" />
+                    <input type="hidden" name="authorize" value="1" />
+                </form>
+            </li>
+            <li class="cancel">
+                <form id="cancel" action="{{ path('authorize_post') ~ '?' ~ app.request.queryString }}" method="post">
+                    <a href="#" onclick="document.getElementById('cancel').submit()">No, no quiero acceder.</a>
+                    <input type="hidden" name="authorize" value="0" />
+                </form>
+            </li>
+        </ul>
+    </div></div>
+    <div class="col-md-2"></div>
+</div>
 {% endblock %}
