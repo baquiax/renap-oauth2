@@ -6,7 +6,7 @@ use Silex\Application;
 
 class RequestToken {
     public static function addRoutes($routing) {
-        $routing->get('/request_token/authorization_code', array(new self(), 'requestTokenWithAuthCode'))->bind('request_token_with_authcode');        
+        $routing->get('/get_token', array(new self(), 'requestTokenWithAuthCode'))->bind('request_token_with_authcode');        
         $routing->get('/request_token/refresh_token', array(new self(), 'requestTokenWithRefreshToken'))->bind('request_token_with_refresh_token');
 
     }
@@ -45,7 +45,7 @@ class RequestToken {
         // make the token request via http and decode the json response
         $response = $http->post($endpoint, null, $query, $config['http_options'])->send();
         $json = json_decode((string) $response->getBody(), true);         
-  		return $app->json($jsonData);
+ 	return $app->json($jsonData);
     }
 
    
