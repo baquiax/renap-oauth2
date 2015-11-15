@@ -9,9 +9,14 @@ class Login {
         $routing->post('/login', array(new self(), 'login'))->bind('login');        
     }    
 
-    public function login(Application $app) {		
-        $app['session']->set('username', "alex");
-        $request = $app["request"];        
-		return $app->redirect($request->get("returnurl"));		        
+    public function login(Application $app) {		        
+        $request = $app["request"];
+        $pdo = $app["mysql_client"];
+        $validUser = $pdo->checkUserCredentials($request->get("username"),$request->get("password"));
+        if ($validUser) {
+            $user = $pdo->getUserDetails($request->get("username"));
+            $app['session']->set("user", $user);
+        }                                                   
+        return $app->redirect($request->get("returnurl"));        				        
     }
 }

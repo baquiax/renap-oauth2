@@ -15,12 +15,19 @@
             <li>crear personas</li>
             <li>ver informacion de personas</li>
             <li>modificar informacion de personas</li>
+            {% if scope %}
+                <li><b>admin</b></li>                
+            {% endif %}
         </ul>
         <p>Las cuales se usarán para:</p>
         <ul>
             <li>Inscribir personas</li>
             <li>Modificar información de las personas</li>
             <li>Verificar existencia de personas</li>
+            {% if scope %}
+                <li><b>Crear nuevos usuarios</b></li>
+                <li><b>Registrar APIs</b></li>
+            {% endif %}
         </ul>
         <p>Haga click en el botón para completar la solicitud de permisos y permitir un <code>{{ response_type == 'code' ? 'Authorization Code' : 'Access Token' }}</code> a {{client_id}}.
         <ul class="authorize_options">

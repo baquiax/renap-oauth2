@@ -17,6 +17,7 @@ $app['debug'] = true;
 
 $app->mount('/', new OAuth2Renap\Client\Client());
 $app->mount('/oauth', new OAuth2Renap\Server\Server());
+$app->mount('/api', new OAuth2Renap\Server\Forward());
 
 
 $request = OAuth2\HttpFoundationBridge\Request::createFromGlobals();

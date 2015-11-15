@@ -7,6 +7,7 @@ use OAuth2\HttpFoundationBridge\Response as BridgeResponse;
 use OAuth2\Server as OAuth2Server;
 use OAuth2\Storage\Pdo;
 use OAuth2\Storage\Memory;
+use OAuth2\Scope;
 use OAuth2\OpenID\GrantType\AuthorizationCode;
 use OAuth2\GrantType\UserCredentials;
 use OAuth2\GrantType\RefreshToken;
@@ -36,11 +37,26 @@ class Server implements ControllerProviderInterface {
             'allow_implicit' => true,            
             'issuer' => $_SERVER['HTTP_HOST'],
         ), $grantTypes);        
+
+        $defaultScope = 'basic';
+        $supportedScopes = array(
+            'basic',
+            'admin'
+        );
         
+        $memory = new Memory(array(
+            'default_scope' => $defaultScope,
+            'supported_scopes' => $supportedScopes
+        ));
+        
+        $scopeUtil = new Scope($memory);        
+        $server->setScopeUtil($scopeUtil);
+        $storage->setUser("admin","admin", "Alexander", "Baquiax", 'admin');
+                
         $app['oauth_server'] = $server;
+        $app['mysql_client'] = $storage;
         $app['oauth_response'] = new BridgeResponse();
     }
-
    
     public function connect(Application $app) {        
         $this->setup($app);        
@@ -48,8 +64,7 @@ class Server implements ControllerProviderInterface {
         Controllers\Authorize::addRoutes($routing);
         Controllers\Token::addRoutes($routing);
         Controllers\Resource::addRoutes($routing);
-	Controllers\Login::addRoutes($routing);
+        Controllers\Login::addRoutes($routing);    
         return $routing;
-    }
-    
+    } 
 }

@@ -1,3 +1,5 @@
+CREATE DATABASE renap_users;
+
 USE renap_users;
 
 CREATE TABLE oauth_clients (
@@ -43,6 +45,7 @@ CREATE TABLE oauth_users (
 	password VARCHAR(2000), 
 	first_name VARCHAR(255), 
 	last_name VARCHAR(255), 
+	scope VARCHAR(2000), 
 	PRIMARY KEY (username)
 );
 
@@ -58,4 +61,4 @@ CREATE TABLE oauth_jwt (
 	PRIMARY KEY (client_id)
 );
 
-INSERT INTO oauth_clients (client_id, client_secret, redirect_uri) VALUES ("testclient", "testpass", "http://localhost/response");
+INSERT INTO oauth_clients (client_id, client_secret, redirect_uri) VALUES ("testclient", "testpass", "http://localhost/receive_code");

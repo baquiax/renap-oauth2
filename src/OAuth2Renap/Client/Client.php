@@ -16,10 +16,10 @@ class Client implements ControllerProviderInterface {
     }
     
     public function connect(Application $app) {        
-        $this->setup($app);        
+        $this->setup($app);
         $routing = $app['controllers_factory'];
-	Controllers\ReceiveAuthorizationCode::addRoutes($routing);
-	Controllers\RequestToken::addRoutes($routing);
+        
+	Controllers\ReceiveAuthorizationCode::addRoutes($routing);	
 	return $routing;
     }    
 }
