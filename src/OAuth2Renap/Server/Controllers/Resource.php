@@ -4,9 +4,10 @@ namespace OAuth2Renap\Server\Controllers;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Response;
 use Guzzle\Http\Exception\ClientErrorResponseException;
+use Guzzle\Http\Exception\BadResponseException;
 
 class Resource {
-    private $base_url = "http://localhost:8080/";
+    private $base_url = "http://192.168.0.101:8080/";
         
     public static function addRoutes($routing) {
         $routing->get('{url}', array(new self(), 'forwardRequest'))->bind('forward')->assert('url', '.*');
@@ -29,6 +30,9 @@ class Resource {
             } catch (ClientErrorResponseException  $e) {
                 $json = json_decode((string) $e->getResponse()->getBody(true), true);
                 $status = (string)$e->getResponse()->getHeader('Content-type');                
+            } catch (BadResponseException  $e) {
+                $json = json_decode((string) $e->getResponse()->getBody(true), true);
+                $status = (string)$e->getResponse()->getHeader('Content-type');                
             }  
             
             return new Response(json_encode($json),
@@ -43,8 +47,7 @@ class Resource {
         $request = $app['request'];
         $http    = $app['http_client'];
         
-        if (!$server->verifyResourceRequest($app['request'], $response, 'admin')) {
-            echo $url;
+        if (!$server->verifyResourceRequest($app['request'], $response, 'admin')) {            
             return $server->getResponse();
         } else {
             try {                
@@ -54,7 +57,10 @@ class Resource {
             } catch (ClientErrorResponseException  $e) {
                 $json = json_decode((string) $e->getResponse()->getBody(true), true);
                 $status = (string)$e->getResponse()->getHeader('Content-type');                
-            }  
+            }  catch (BadResponseException  $e) {
+                $json = json_decode((string) $e->getResponse()->getBody(true), true);
+                $status = (string)$e->getResponse()->getHeader('Content-type');                
+            } 
             
             return new Response(json_encode($json),
                 $response->getStatusCode(),

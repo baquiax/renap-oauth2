@@ -1,0 +1,20 @@
+client_id		= miguel
+client_secret	= miguelpass
+
+::::::::::::::::::::::::::::::
+::: ABRIR VENTANA DE LOGIN :::
+::::::::::::::::::::::::::::::
+var login = window.open("http://192.168.0.104/oauth/authorize?client_id=<client_id>&response_type=code&state=ok", "login", "height=620,width=480");
+
+
+-Cuando se realice un login correcto, este te va a redirigir al url configurado el el servicio de oauth
+con un parametro <code>, el cual debemos utilizar para solicitar el token.
+
+$parameters = array(
+	"grant_type" => "authorization_code",
+	"code" => $request->get('code'),            
+	"client_id"     => <client_id>,
+	"client_secret" => <client_secret>,
+);        
+
+$response = $http->post("   http://localhost/oauth/token", null, $parameters, array("exceptions" => false))->send();
